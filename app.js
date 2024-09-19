@@ -41,6 +41,31 @@ app.post("/cadastrar", function (req, res) {
     });
 });
 
+app.get("/consulta", async function (req, res) {
+    try {
+        const snapshot = await db.collection('clientes').get();
+        
+        let clientes = [];
+
+        snapshot.forEach((doc) => {
+            clientes.push({
+                id: doc.id,
+                nome: doc.data().nome,
+                telefone: doc.data().telefone,
+                origem: doc.data().origem,
+                data_contato: doc.data().data_contato,
+                observacao: doc.data().observacao
+            });
+        });
+
+        res.render('consulta', { clientes });
+    } catch (error) {
+        console.error("Erro ao consultar dados: ", error);
+        res.status(500).send("Erro ao consultar dados.");
+    }
+});
+
+
 app.listen(8081, function () {
     console.log("Servidor Ativo na porta 8081");
 });
