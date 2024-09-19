@@ -6,7 +6,8 @@ const handlebars = require('express-handlebars').engine;
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
-const serviceAccount = require('./dsmlabweb-firebase-adminsdk-dxv32-bf55b1dd5d.json');
+// O Git bloqueou o commit com o arquivo do FireStore
+const serviceAccount = require('./teste.json');
 
 initializeApp({
     credential: cert(serviceAccount)
