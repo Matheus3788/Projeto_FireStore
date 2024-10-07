@@ -99,9 +99,8 @@
                 <div class="col">
                     <button type="button" class="btn btn-primary"><a href="/editar/{{id}}"
                             style="color:inherit">Editar</a></button>
-                    <form action="/excluir/{{id}}" method="POST" style="display:inline;">
-                        <button type="submit" class="btn btn-sm btn-danger ml-2">Excluir</button>
-                    </form>
+                    <button type="button" style="display:inline; color: white;" class="btn btn-danger ml-2"><a
+                            href="/excluir/{{id}}" style="color: inherit;">Excluir</a></button>
                 </div>
             </div>
             {{/each}}

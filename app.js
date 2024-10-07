@@ -7,7 +7,7 @@ const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
 // O Git bloqueou o commit com o arquivo do FireStore
-const serviceAccount = require('./teste_update_delete.json');
+const serviceAccount = require('finalizacao.json');
 
 initializeApp({
     credential: cert(serviceAccount)
@@ -40,7 +40,7 @@ app.post("/cadastrar", function (req, res) {
         observacao: req.body.observacao
     }).then(function () {
         console.log("Dados cadastrados com sucesso!");
-        res.send("Dados cadastrados com sucesso!");
+        res.redirect("/consultar");
     }).catch(function (error) {
         console.error("Erro ao cadastrar: ", error);
         res.status(500).send("Erro ao cadastrar dados.");
@@ -62,7 +62,22 @@ app.get("/consultar", function (req, res) {
     )
 });
 
-app.post("/atualizar/:id?", function (req, res) {
+
+// app.post("/atualizar/:id", function(req, res){
+//     const id = req.params.id
+//     db.collection('clientes').doc(id).update({
+//         nome: req.body.nome,
+//         telefone: req.body.telefone,
+//         origem: req.body.origem,
+//         data_contato: req.body.data_contato,
+//         observacao: req.body.observacao
+//     }).then(function(){
+//         res.redirect('/consultar')
+//         console.log("Dados atualizados com sucesso!")
+//     })
+// })
+
+app.post("/atualizar", function (req, res) {
     const id = req.body.id;
     console.log("ID recebido:", id);
 
@@ -77,7 +92,7 @@ app.post("/atualizar/:id?", function (req, res) {
     db.collection('clientes').doc(id).update(dadosAtualizados)
         .then(function () {
             console.log("Dados atualizados com sucesso!");
-            res.send("Dados atualizados com sucesso!");
+            res.redirect("/consultar");
         })
         .catch(function (error) {
             console.error("Erro ao atualizar: ", error);
@@ -101,13 +116,13 @@ app.get("/editar/:id", function (req, res) {
     )
 });
 
-app.post("/excluir/:id", function (req, res) {
+app.get("/excluir/:id", function (req, res) {
     const id = req.params.id;
 
     db.collection('clientes').doc(id).delete()
         .then(function () {
             console.log("Cliente excluído com sucesso!");
-            res.send("Cliente excluído com sucesso!");
+            res.redirect("/consultar");
         })
         .catch(function (error) {
             console.error("Erro ao excluir cliente: ", error);

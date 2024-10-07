@@ -44,7 +44,7 @@
             <p class="text-start fs-5">Editar - Agendamento de Potenciais Clientes</p>
             <p class="text-start fs-6">Sistema Utilizado para agendamento de serviços.</p>
             <p>
-            <form action="/atualizar/{{this.id}}" method="POST">
+            <form action="/atualizar/{{id}}" method="POST">
                 {{#each posts}}
                 <input type="hidden" name="id" value="{{this.id}}">
                 <div class="mb-3 text-start">
